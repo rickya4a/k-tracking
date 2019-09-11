@@ -1,18 +1,33 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <transition name="fade">
+    <router-view></router-view>
+  </transition>
 </template>
 
+<style>
+.fade-enter-active, .fade-leave-active {
+  transition-property: opacity;
+  transition-duration: .25s;
+}
+
+.fade-enter-active {
+  transition-delay: .25s;
+}
+
+.fade-enter, .fade-leave-active {
+  opacity: 0
+}
+</style>
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+/* import Home from '../components/Home';
+import Status from '../components/Status';
+import Tracking from '../components/Tracking';
 
 export default {
-  name: 'home',
   components: {
-    HelloWorld
-  }
-}
+    Home,
+    Status,
+    Tracking
+  },
+}; */
 </script>
