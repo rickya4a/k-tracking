@@ -1,7 +1,9 @@
 <template>
-  <transition name="fade">
-    <router-view></router-view>
-  </transition>
+  <v-layout>
+    <p class="display-1">
+      Dashboard
+    </p>
+  </v-layout>
 </template>
 
 <style>
@@ -19,15 +21,4 @@
 }
 </style>
 <script>
-/* import Home from '../components/Home';
-import Status from '../components/Status';
-import Tracking from '../components/Tracking';
-
-export default {
-  components: {
-    Home,
-    Status,
-    Tracking
-  },
-}; */
 </script>
