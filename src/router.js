@@ -2,13 +2,14 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import store from './store.js'
 import Layout from './components/Layout.vue'
+import Home from './views/Home.vue'
 import Login from './components/Login.vue'
 import Tracking from './views/Tracking.vue'
 import Status from './views/Status.vue'
 
 Vue.use(Router)
 
-let router = new Router({
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
@@ -19,8 +20,12 @@ let router = new Router({
       meta: {
         requiresAuth: true
       },
-      component: Layout, // base layout
+      component: Layout,
       children: [
+        {
+          path: '/',
+          component: Home
+        },
         {
           path: 'tracking',
           name: 'tracking',
@@ -51,6 +56,10 @@ router.beforeEach((to, from, next) => {
   } else {
     next()
   }
+})
+
+router.replace({
+  path: 'home'
 })
 
 export default router

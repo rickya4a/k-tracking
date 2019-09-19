@@ -5,12 +5,14 @@
       app
     >
       <v-list dense>
-        <v-list-item to="/home">
+        <v-list-item
+          link
+        >
           <v-list-item-action>
-            <v-icon>mdi-view-dashboard</v-icon>
+            <v-icon>mdi-account</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Dashboard</v-list-item-title>
+            <v-list-item-title>Hi, {{ user }}!</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
 
@@ -31,16 +33,21 @@
             <v-list-item-title>Status</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-
-        <v-list-item @click="logout" v-if="isLoggedIn">
-          <v-list-item-action>
-            <v-icon>mdi-logout</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Logout</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
       </v-list>
+
+      <template
+        v-slot:append
+        v-if="isLoggedIn"
+      >
+        <div class="pa-2">
+          <v-btn
+            block
+            @click="logout"
+            color="green"
+            :elevation="10"
+          >Logout</v-btn>
+        </div>
+      </template>
     </v-navigation-drawer>
 
     <v-app-bar
@@ -54,7 +61,7 @@
 
     <v-container>
     <!-- Block content -->
-      <router-view/>
+      <router-view></router-view>
     <!-- Block content -->
     </v-container>
 
@@ -76,6 +83,7 @@
     },
     data: () => ({
       drawer: null,
+      user: localStorage.getItem('username')
     }),
     computed : {
       isLoggedIn () {
@@ -91,7 +99,7 @@
       }
     },
     created () {
-      this.$http.interceptors.response.use(undefined, function (err) {
+      this.$http.interceptors.response.use(undefined, err => {
         return new Promise((resolve, reject) => {
           if (err.status === 401 && err.config && !err.config.__isRetryRequest) {
             this.$store.dispatch(logout)

@@ -3,6 +3,7 @@
     <v-content>
       <v-container
         class="fill-height"
+        transition="fade-transition"
         fluid
       >
         <v-row
@@ -14,7 +15,18 @@
             sm="8"
             md="4"
           >
-            <v-card class="elevation-12">
+            <v-alert
+              outlined
+              dense
+              v-show="authErr"
+              class="elevation-21"
+              type="error"
+              dark
+              transition="scale-transition"
+            >
+              Username atau password salah
+            </v-alert>
+            <v-card class="elevation-21">
               <v-toolbar
                 color="primary"
                 dark
@@ -24,13 +36,18 @@
                 <div class="flex-grow-1"></div>
               </v-toolbar>
               <v-card-text>
-                <v-form>
+                <v-form
+                  ref="form"
+                  v-model="valid"
+                  lazy-validation
+                >
                   <v-text-field
                     label="Login"
                     name="username"
                     type="text"
                     prepend-icon="person"
                     v-model="username"
+                    :rules="usernameRules"
                   ></v-text-field>
 
                   <v-text-field
@@ -40,12 +57,16 @@
                     type="password"
                     prepend-icon="lock"
                     v-model="password"
+                    :rules="passwordRules"
                   ></v-text-field>
                 </v-form>
               </v-card-text>
               <v-card-actions>
                 <div class="flex-grow-1"></div>
-                <v-btn color="primary">Login</v-btn>
+                <v-btn color="primary"
+                  @click="validate"
+                  :disabled="!valid"
+                >Login</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -61,20 +82,42 @@
     props: {
       source: String,
     },
+    computed: {
+      authErr () {
+        return this.$store.getters.authErr
+      }
+    },
     data: () => ({
       drawer: null,
+      alert: true,
+      valid: true,
       username: '',
-      password: ''
+      usernameRules: [
+        v => !!v || 'Username tidak boleh kosong'
+      ],
+      password: '',
+      passwordRules: [
+        v => !!v || 'Password tidak boleh kosong'
+      ],
     }),
     methods: {
+      validate () {
+        if (this.$refs.form.validate()) {
+          this.snackbar = true
+          this.formHasErrors = false
+          this.login()
+        }
+      },
       login () {
-        let email = this.email
+        let username = this.username
         let password = this.password
         this.$store.dispatch('login', {
-          email,
+          username,
           password
         })
-        .then(() => this.$router.push('/home'))
+        .then(() => {
+          this.$router.push('/home')
+        })
         .catch(err => console.log(err))
       }
     }

@@ -5,7 +5,6 @@
     </p>
     <ul>
       <li v-for="item in items" v-bind:key="item.id">
-        <!-- {{ item.VoucherNo + ' - ' + item.DistributorCode }} -->
         {{ item }}
       </li>
     </ul>
@@ -21,7 +20,6 @@ export default {
     }),
     mounted () {
       axios
-      // .get('https://jsonplaceholder.typicode.com/posts')
       .get('http://192.168.91.22:3000/tracking')
       .then((response) => (this.items = response.data))
       .catch((error) => console.log(error))

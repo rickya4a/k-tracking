@@ -7,15 +7,18 @@ import './registerServiceWorker'
 import './assets/style.scss'
 import vueHeadful from 'vue-headful'
 import axios from 'axios'
+import VueSession from 'vue-session'
+
+Vue.use(VueSession)
 
 Vue.component('vue-headful', vueHeadful)
 
 Vue.config.productionTip = false
 
-Vue.prototype.$http = axios;
+Vue.prototype.$http = axios
 const token = localStorage.getItem('token')
 if (token) {
-  Vue.prototype.$http.defaults.headers.common['Authorization'] = token
+  Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer' + token
 }
 
 new Vue({

@@ -1,4 +1,3 @@
-/* eslint-disable */
 <template>
   <v-form
     ref="form"
@@ -64,8 +63,8 @@
 
     <v-expand-transition>
       <v-card
-      class="mx-auto divider"
-      v-show="expand"
+        class="mx-auto divider"
+        v-show="expand"
       >
         <v-card-title>Tracking Status</v-card-title>
         <v-simple-table>
@@ -106,7 +105,6 @@
     >
       Reset
     </v-btn>
-    <!-- Output: {{ output }} -->
   </v-form>
 </template>
 
@@ -118,6 +116,7 @@
 </style>
 
 <script>
+/* eslint-disable */
 import axios from "axios"
 import uuid from "uuid/v4"
 import moment from "moment"
@@ -187,7 +186,7 @@ import moment from "moment"
               id_do: this.id_do,
               no_do: this.delivery,
               created_date: formatted_date,
-              created_by: this.name,
+              created_by: localStorage.getItem('username'),
               tanggal: formatted_date,
               status: this.status,
               id_warehouse: this.id_warehouse,
@@ -202,30 +201,23 @@ import moment from "moment"
             this.output = error;
           })
       },
-      /* detail () {
-        return axios.get('http://192.168.91.22:3000/tracking/' + this.delivery)
-      },
-      statusDetail () {
-        return axios.get('http://192.168.91.22:3000/findtracking/' + this.delivery)
-      }, */
       getDetails () {
         axios.all([
-          axios.get('http://192.168.91.22:3000/tracking/' + this.delivery),
-          axios.get('http://192.168.91.22:3000/findtracking/' + this.delivery)
+          axios.get('http://192.168.91.22:3000/tracking/' + this.delivery)
         ])
-        .then(axios.spread((detail, status) => {
+        .then(axios.spread((rows) => {
           // send detail
-          this.id_do = detail.data[0].ID_DO;
-          this.courier = detail.data[0].NAMA[1];
-          this.stockist = detail.data[0].CODE_STOCKIES;
-          this.name = detail.data[0].NAMA[0];
-          this.address = detail.data[0].ALAMAT1;
-          this.warehouse = detail.data[0].WAREHOUSE_NAME;
-          this.id_warehouse = detail.data[0].ID_WAREHOUSE;
+          this.id_do = rows.data[0][0].ID_DO;
+          this.courier = rows.data[0][0].NAMA[1];
+          this.stockist = rows.data[0][0].CODE_STOCKIES;
+          this.name = rows.data[0][0].NAMA[0];
+          this.address = rows.data[0][0].ALAMAT1;
+          this.warehouse = rows.data[0][0].WAREHOUSE_NAME;
+          this.id_warehouse = rows.data[0][0].ID_WAREHOUSE;
 
           // send status
-          this.details = status.data;
-          this.expand = !this.expand
+          this.details = rows.data[1];
+          this.expand = true;
         }))
         .catch((error) => {
           this.output = error
