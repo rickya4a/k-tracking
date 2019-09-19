@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/rickyaditya/k-tracking.svg?token=DGGdSFWirpaKtysMiZUt&branch=master)](https://travis-ci.com/rickyaditya/k-tracking)
 # spa-app
 
 ## Project setup
