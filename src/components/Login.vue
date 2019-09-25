@@ -18,7 +18,7 @@
             <v-alert
               outlined
               dense
-              v-show="authErr"
+              v-if="authErr"
               class="elevation-21"
               type="error"
               dark

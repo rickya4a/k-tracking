@@ -15,7 +15,6 @@ const router = new Router({
   routes: [
     {
       path: '/home',
-      name: 'home',
       title: 'Home',
       meta: {
         requiresAuth: true

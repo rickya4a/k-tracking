@@ -21,6 +21,7 @@ if (token) {
   Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer' + token
 }
 
+
 new Vue({
   router,
   store,

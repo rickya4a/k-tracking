@@ -39,7 +39,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         commit('auth_request')
         axios({
-          url: 'http://192.168.91.22:3000/findCourier',
+          url: process.env.VUE_APP_API_URL+'findCourier',
           data: payload,
           method: 'POST'
         })

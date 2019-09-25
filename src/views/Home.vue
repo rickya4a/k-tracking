@@ -6,7 +6,7 @@
   </v-layout>
 </template>
 
-<style>
+<style scoped>
 .fade-enter-active, .fade-leave-active {
   transition-property: opacity;
   transition-duration: .25s;
@@ -20,5 +20,11 @@
   opacity: 0
 }
 </style>
+
 <script>
+export default {
+  props: {
+    customData: Object
+  }
+}
 </script>

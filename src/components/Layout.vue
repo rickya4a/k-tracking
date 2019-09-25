@@ -7,6 +7,7 @@
       <v-list dense>
         <v-list-item
           link
+          to="/home/#"
         >
           <v-list-item-action>
             <v-icon>mdi-account</v-icon>
@@ -61,7 +62,7 @@
 
     <v-container>
     <!-- Block content -->
-      <router-view></router-view>
+      <router-view />
     <!-- Block content -->
     </v-container>
 
