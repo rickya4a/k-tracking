@@ -26,14 +26,14 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-item to="/home/status">
+        <!-- <v-list-item to="/home/status">
           <v-list-item-action>
             <v-icon>mdi-chart-timeline-variant</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>Status</v-list-item-title>
           </v-list-item-content>
-        </v-list-item>
+        </v-list-item> -->
 
         <v-list-item to="/home/setting">
           <v-list-item-action>
