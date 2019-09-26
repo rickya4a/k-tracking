@@ -198,7 +198,7 @@ import moment from "moment"
               id_tracking: uuid()
             }
         axios
-        .post(process.env.VUE_APP_API_URL+'inputTracking', items)
+        .post('http://103.233.109.131:5500/inputTracking', items)
           .then((response) => {
             this.text = 'Data berhasil diperbarui...'
             this.snackbar = true
@@ -210,7 +210,7 @@ import moment from "moment"
       },
       getDetails () {
         axios.all([
-          axios.get(process.env.VUE_APP_API_URL+'tracking/' + this.delivery)
+          axios.get('http://103.233.109.131:5500/tracking/' + this.delivery)
         ])
         .then(axios.spread((rows) => {
           // send detail
