@@ -34,6 +34,15 @@
             <v-list-item-title>Status</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+
+        <v-list-item to="/home/setting">
+          <v-list-item-action>
+            <v-icon>mdi-settings</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Setting</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
 
       <template

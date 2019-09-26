@@ -88,6 +88,20 @@
       </v-card>
     </v-expand-transition>
 
+    <v-snackbar
+      v-model="snackbar"
+      :timeout="timeout"
+    >
+      {{ text }}
+      <v-btn
+        color="blue"
+        text
+        @click="snackbar = false"
+      >
+        Close
+      </v-btn>
+    </v-snackbar>
+
     <v-btn
       :disabled="!valid"
       color="success"
@@ -123,12 +137,14 @@ import moment from "moment"
 
   export default {
     data: () => ({
+      snackbar: false,
+      timeout: 3000,
+      text: '',
       expand: false,
       valid: true,
       id_do: '',
       id_warehouse: '',
       details: '',
-      output: '',
       name: '',
       nameRules: [
         v => !!v || 'Name tidak boleh kosong',
@@ -195,15 +211,17 @@ import moment from "moment"
         axios
         .post(process.env.VUE_APP_API_URL+'inputTracking', items)
           .then((response) => {
-            this.output = response.data;
+            this.text = 'Data berhasil diperbarui...'
+            this.snackbar = true
           })
           .catch((error) => {
-            this.output = error;
+            this.text = 'Terjadi kesalahan...'
+            this.snackbar = true
           })
       },
       getDetails () {
         axios.all([
-          axios.get(process.env.VUE_APP_API_URL+'/tracking/' + this.delivery)
+          axios.get(process.env.VUE_APP_API_URL+'tracking/' + this.delivery)
         ])
         .then(axios.spread((rows) => {
           // send detail
@@ -216,11 +234,13 @@ import moment from "moment"
           this.id_warehouse = rows.data[0][0].ID_WAREHOUSE;
 
           // send status
-          this.details = rows.data[1];
-          this.expand = true;
+          this.details = rows.data[1]
+          this.expand = true
         }))
         .catch((error) => {
-          this.output = error
+          // this.output = error
+          this.text = 'Uh-oh...! Something goes wrong'
+          this.snackbar = true
         })
       }
     },

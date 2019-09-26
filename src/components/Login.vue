@@ -28,7 +28,7 @@
             </v-alert>
             <v-card class="elevation-21">
               <v-toolbar
-                color="primary"
+                color="success"
                 dark
                 flat
               >
@@ -63,7 +63,7 @@
               </v-card-text>
               <v-card-actions>
                 <div class="flex-grow-1"></div>
-                <v-btn color="primary"
+                <v-btn color="success"
                   @click="validate"
                   :disabled="!valid"
                 >Login</v-btn>
