@@ -1,131 +1,120 @@
 <template>
-  <v-form
-    ref="form"
-    v-model="valid"
-    lazy-validation
-  >
-    <p class="display-1">
-      Tracking Delivery Order
-    </p>
-    <v-text-field
-      v-model="delivery"
-      :rules="deliveryRules"
-      label="No. DO."
-      @change="getDetails"
-      required
-    ></v-text-field>
+  <v-card>
+    <v-container>
+      <v-card-title>Tracking Status</v-card-title>
+      <!-- Main form -->
+      <v-form ref="form" v-model="valid" lazy-validation>
+        <v-text-field
+          v-model="delivery"
+          :rules="deliveryRules"
+          label="No. DO."
+          @change="getDetails"
+          required
+        >
+        </v-text-field>
 
-    <input type="hidden" v-model="id_do">
+        <input type="hidden" v-model="id_do">
 
-    <v-text-field
-      v-model="courier"
-      :rules="courierRules"
-      label="Nama Kurir"
-      required
-    ></v-text-field>
+        <v-text-field
+          v-model="courier"
+          :rules="courierRules"
+          label="Nama Kurir"
+          required
+        ></v-text-field>
 
-    <v-text-field
-      v-model="stockist"
-      :rules="stockistRules"
-      label="Kode Stockist"
-      required
-    ></v-text-field>
+        <v-text-field
+          v-model="stockist"
+          :rules="stockistRules"
+          label="Kode Stockist"
+          required
+        ></v-text-field>
 
-    <v-text-field
-      v-model="name"
-      :rules="nameRules"
-      label="Nama"
-      required
-    ></v-text-field>
+        <v-text-field
+          v-model="name"
+          :rules="nameRules"
+          label="Nama"
+          required
+        ></v-text-field>
 
-    <v-text-field
-      v-model="address"
-      :rules="addressRules"
-      label="Alamat"
-      required
-    ></v-text-field>
+        <v-text-field
+          v-model="address"
+          :rules="addressRules"
+          label="Alamat"
+          required
+        ></v-text-field>
 
-    <v-text-field
-      v-model="warehouse"
-      :rules="warehouseRules"
-      label="Gudang"
-      required
-    ></v-text-field>
+        <v-text-field
+          v-model="warehouse"
+          :rules="warehouseRules"
+          label="Gudang"
+          required
+        ></v-text-field>
 
-    <input type="hidden" v-model="id_warehouse">
+        <v-text-field
+          v-model="status"
+          :rules="statusRules"
+          label="Status"
+          required
+        ></v-text-field>
 
-    <v-text-field
-      v-model="status"
-      :rules="statusRules"
-      label="Status"
-      required
-    ></v-text-field>
+        <input type="hidden" v-model="id_warehouse">
 
-    <v-expand-transition>
-      <v-card
-        class="mx-auto divider"
-        v-show="expand"
-      >
-        <v-card-title>Tracking Status</v-card-title>
-        <v-simple-table>
-          <thead>
-            <tr>
-              <!-- <th class="text-left">Deliver Order</th> -->
-              <th class="text-left">Status</th>
-              <th class="text-left">Created By</th>
-              <th class="text-left">Created Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="detail in details" :key="detail.ID_DO">
-              <!-- <td>{{ detail.NO_DO }}</td> -->
-              <td>{{ detail.STATUS }}</td>
-              <td>{{ detail.CREATED_BY }}</td>
-              <td>{{ detail.CREATED_DATE }}</td>
-            </tr>
-          </tbody>
-        </v-simple-table>
-      </v-card>
-    </v-expand-transition>
+        <v-item-group>
+          <v-btn
+            :disabled="!valid"
+            color="success"
+            class="mr-4"
+            elevation="5"
+            @click="validate"
+          >Submit</v-btn>
+          <v-btn
+            color="warning"
+            class="mr-4"
+            elevation="5"
+            @click="reset"
+          >Reset</v-btn>
+        </v-item-group>
 
-    <v-snackbar
-      v-model="snackbar"
-      :timeout="timeout"
-    >
-      {{ text }}
-      <v-btn
-        color="blue"
-        text
-        @click="snackbar = false"
-      >
-        Close
-      </v-btn>
-    </v-snackbar>
+        <!-- Detail status -->
+        <v-expand-transition>
+          <v-card class="mx-auto divider" v-show="expand">
+            <v-card-title>Tracking Status</v-card-title>
+            <v-simple-table>
+              <thead>
+                <tr>
+                  <th class="text-left">Status</th>
+                  <th class="text-left">Created By</th>
+                  <th class="text-left">Created Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="detail in details" :key="detail.ID_DO">
+                  <td>{{ detail.STATUS }}</td>
+                  <td>{{ detail.CREATED_BY }}</td>
+                  <td>{{ detail.CREATED_DATE }}</td>
+                </tr>
+              </tbody>
+            </v-simple-table>
+          </v-card>
+        </v-expand-transition>
 
-    <v-btn
-      :disabled="!valid"
-      color="success"
-      class="mr-4"
-      elevation="5"
-      @click="validate"
-    >
-      Submit
-    </v-btn>
-    <v-btn
-      color="warning"
-      class="mr-4"
-      elevation="5"
-      @click="reset"
-    >
-      Reset
-    </v-btn>
-  </v-form>
+        <!-- Alert -->
+        <v-snackbar v-model="snackbar" :timeout="timeout">
+          {{ text }}
+          <v-btn color="blue" text @click="snackbar = false">
+            Close
+          </v-btn>
+        </v-snackbar>
+
+      </v-form>
+    </v-container>
+  </v-card>
 </template>
 
 <style scoped>
-.divider {
-  margin-top: .1em;
-  margin-bottom: .75rem
+.v-item-group {
+  margin-top: .05em;
+  margin-bottom: .85rem
 }
 </style>
 
@@ -148,7 +137,7 @@ import moment from "moment"
       name: '',
       nameRules: [
         v => !!v || 'Name tidak boleh kosong',
-        v => (v && v.length <= 20) || 'Name must be less than 10 characters',
+        v => (v && v.length <= 20) || 'Name must be less than 10 characters'
       ],
       delivery: '',
       deliveryRules: [
@@ -238,7 +227,6 @@ import moment from "moment"
           this.expand = true
         }))
         .catch((error) => {
-          // this.output = error
           this.text = 'Uh-oh...! Something goes wrong'
           this.snackbar = true
         })

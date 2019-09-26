@@ -1,8 +1,11 @@
 <template>
   <v-layout>
-    <p class="display-1">
-      Dashboard
-    </p>
+    <v-card
+      min-width="1042"
+      min-height="350"
+    >
+      <v-card-title>Dashboard</v-card-title>
+    </v-card>
   </v-layout>
 </template>
 
