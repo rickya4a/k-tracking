@@ -20,7 +20,7 @@ export default {
   }),
   mounted () {
     axios
-    .get('http://103.233.109.131:5500/tracking')
+    .get(process.env.VUE_APP_API_URL+'tracking')
     .then((response) => (this.items = response.data))
     .catch((error) => console.log(error))
   }
