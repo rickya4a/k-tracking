@@ -1,10 +1,12 @@
 <template>
   <v-layout>
-    <v-card
-      min-width="1042"
-      min-height="350"
-    >
-      <v-card-title>Dashboard</v-card-title>
+    <v-card>
+      <v-card-title>Status</v-card-title>
+      <ul>
+        <li v-for="item in items" :key="item.id">
+          {{ item }}
+        </li>
+      </ul>
     </v-card>
   </v-layout>
 </template>
@@ -25,9 +27,16 @@
 </style>
 
 <script>
+import axios from 'axios'
 export default {
-  props: {
-    customData: Object
+  data: () => ({
+    items: null
+  }),
+  mounted () {
+    axios
+    .get(process.env.VUE_APP_API_URL+'tracking')
+    .then((response) => (this.items = response.data))
+    .catch((error) => console.log(error))
   }
 }
 </script>
