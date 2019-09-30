@@ -78,48 +78,48 @@
 
 <script>
 /* eslint-disable no-console */
-  export default {
-    props: {
-      source: String,
-    },
-    computed: {
-      authErr () {
-        return this.$store.getters.authErr
+export default {
+  props: {
+    source: String,
+  },
+  computed: {
+    authErr () {
+      return this.$store.getters.authErr
+    }
+  },
+  data: () => ({
+    drawer: null,
+    alert: true,
+    valid: true,
+    username: '',
+    usernameRules: [
+      v => !!v || 'Username tidak boleh kosong'
+    ],
+    password: '',
+    passwordRules: [
+      v => !!v || 'Password tidak boleh kosong'
+    ],
+  }),
+  methods: {
+    validate () {
+      if (this.$refs.form.validate()) {
+        this.snackbar = true
+        this.formHasErrors = false
+        this.login()
       }
     },
-    data: () => ({
-      drawer: null,
-      alert: true,
-      valid: true,
-      username: '',
-      usernameRules: [
-        v => !!v || 'Username tidak boleh kosong'
-      ],
-      password: '',
-      passwordRules: [
-        v => !!v || 'Password tidak boleh kosong'
-      ],
-    }),
-    methods: {
-      validate () {
-        if (this.$refs.form.validate()) {
-          this.snackbar = true
-          this.formHasErrors = false
-          this.login()
-        }
-      },
-      login () {
-        let username = this.username
-        let password = this.password
-        this.$store.dispatch('login', {
-          username,
-          password
-        })
-        .then(() => {
-          this.$router.push('/home')
-        })
-        .catch(err => console.log(err))
-      }
+    login () {
+      let username = this.username
+      let password = this.password
+      this.$store.dispatch('login', {
+        username,
+        password
+      })
+      .then(() => {
+        this.$router.push('/home')
+      })
+      .catch(err => console.log(err))
     }
   }
+}
 </script>
