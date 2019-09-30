@@ -116,7 +116,7 @@ export default {
         password
       })
       .then(() => {
-        this.$router.push('/home')
+        this.$router.push('/tracking')
       })
       .catch(err => console.log(err))
     }

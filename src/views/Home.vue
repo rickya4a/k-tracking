@@ -2,11 +2,16 @@
   <v-layout>
     <v-card>
       <v-card-title>Status</v-card-title>
-      <ul>
-        <li v-for="item in items" :key="item.id">
-          {{ item }}
-        </li>
-      </ul>
+      <v-data-table
+        :headers="headers"
+        :items="items"
+        :items-per-page="5"
+        class="elevation-1"
+      >
+        <template slot="items" slot-scope="props">
+          <td v-for="header in headers" :key="header.id_do">{{ props.item[header.value] }}</td>
+        </template>
+      </v-data-table>
     </v-card>
   </v-layout>
 </template>
@@ -30,12 +35,24 @@
 import axios from 'axios'
 export default {
   data: () => ({
-    items: null
+    items: [
+
+    ],
+    headers: [
+      {
+        text: 'No. DO',
+        sortable: false,
+        value: 'no_do'
+      },
+      { text: 'Status', value: 'status' },
+      { text: 'Tanggal', value: 'tanggal' },
+      { text: 'Dibuat', value: 'created' }
+    ]
   }),
   mounted () {
     axios
     .get(process.env.VUE_APP_API_URL+'tracking')
-    .then((response) => (this.items = response.data))
+    .then((response) => (this.items = response.data.values))
     .catch((error) => console.log(error))
   }
 }
