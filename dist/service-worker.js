@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.f123176070da0afd26c65938053eb726.js"
+  "/precache-manifest.4074fccc7fdd34264199260ee5251870.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "spa-app"});
