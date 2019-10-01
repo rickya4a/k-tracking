@@ -1,10 +1,30 @@
 <template>
   <v-layout>
-    <v-card
-      min-width="1042"
-      min-height="350"
-    >
-      <v-card-title>Dashboard</v-card-title>
+    <v-card>
+      <v-card-title>Status
+        <div class="flex-grow-1"></div>
+        <v-text-field
+          v-model="search"
+          append-icon="search"
+          label="Search"
+          single-line
+          hide-details
+        ></v-text-field>
+      </v-card-title>
+      <v-data-table
+        :headers="headers"
+        :items="items"
+        :items-per-page="5"
+        :search="search"
+        class="elevation-1"
+      >
+        <template slot="items" slot-scope="props">
+          <td>{{ props.item.NO_DO }}</td>
+          <td class="text-xs-right">{{ props.item.STATUS }}</td>
+          <td class="text-xs-right">{{ props.item.TANGGAL }}</td>
+          <td class="text-xs-right">{{ props.item.CREATED_BY }}</td>
+        </template>
+      </v-data-table>
     </v-card>
   </v-layout>
 </template>
@@ -25,9 +45,27 @@
 </style>
 
 <script>
+import axios from 'axios'
 export default {
-  props: {
-    customData: Object
+  data: () => ({
+    search: "",
+    items: [],
+    headers: [
+      {
+        text: 'No. DO',
+        sortable: false,
+        value: 'NO_DO'
+      },
+      { text: 'Status', value: 'STATUS' },
+      { text: 'Tanggal', value: 'TANGGAL' },
+      { text: 'Dibuat', value: 'CREATED_BY' }
+    ]
+  }),
+  mounted () {
+    axios
+    .get(process.env.VUE_APP_API_URL+'tracking')
+    .then((response) => (this.items = response.data.values))
+    .catch((error) => console.log(error))
   }
 }
 </script>

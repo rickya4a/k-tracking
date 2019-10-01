@@ -124,113 +124,113 @@ import axios from "axios"
 import uuid from "uuid/v4"
 import moment from "moment"
 
-  export default {
-    data: () => ({
-      snackbar: false,
-      timeout: 3000,
-      text: '',
-      expand: false,
-      valid: true,
-      id_do: '',
-      id_warehouse: '',
-      details: '',
-      name: '',
-      nameRules: [
-        v => !!v || 'Name tidak boleh kosong',
-        v => (v && v.length <= 20) || 'Name must be less than 10 characters'
-      ],
-      delivery: '',
-      deliveryRules: [
-        v => !!v || 'DO tidak boleh kosong'
-      ],
-      courier: '',
-      courierRules: [
-        v => !!v || 'Kurir tidak boleh kosong'
-      ],
-      address: '',
-      addressRules: [
-        v => !!v || 'Alamat tidak boleh kosong'
-      ],
-      warehouse: '',
-      warehouseRules: [
-        v => !!v || 'Gudang tidak boleh kosong'
-      ],
-      status: '',
-      statusRules: [
-        v => !!v || 'Status tidak boleh kosong'
-      ],
-      stockist: '',
-      stockistRules: [
-        v => !!v || 'Stokis tidak boleh kosong'
-      ],
-      email: '',
-      emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
-      ],
-    }),
+export default {
+  data: () => ({
+    snackbar: false,
+    timeout: 3000,
+    text: '',
+    expand: false,
+    valid: true,
+    id_do: '',
+    id_warehouse: '',
+    details: '',
+    name: '',
+    nameRules: [
+      v => !!v || 'Name tidak boleh kosong',
+      v => (v && v.length <= 20) || 'Name must be less than 10 characters'
+    ],
+    delivery: '',
+    deliveryRules: [
+      v => !!v || 'DO tidak boleh kosong'
+    ],
+    courier: '',
+    courierRules: [
+      v => !!v || 'Kurir tidak boleh kosong'
+    ],
+    address: '',
+    addressRules: [
+      v => !!v || 'Alamat tidak boleh kosong'
+    ],
+    warehouse: '',
+    warehouseRules: [
+      v => !!v || 'Gudang tidak boleh kosong'
+    ],
+    status: '',
+    statusRules: [
+      v => !!v || 'Status tidak boleh kosong'
+    ],
+    stockist: '',
+    stockistRules: [
+      v => !!v || 'Stokis tidak boleh kosong'
+    ],
+    email: '',
+    emailRules: [
+      v => !!v || 'E-mail is required',
+      v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+    ],
+  }),
 
-    methods: {
-      validate () {
-        if (this.$refs.form.validate()) {
-          this.snackbar = true
-          this.formHasErrors = false
-          this.submit()
-          this.reset()
-          this.expand = false
-        }
-      },
-      reset () {
-        this.$refs.form.reset()
+  methods: {
+    validate () {
+      if (this.$refs.form.validate()) {
+        this.snackbar = true
+        this.formHasErrors = false
+        this.submit()
+        this.reset()
         this.expand = false
-      },
-      submit () {
-        let current_datetime = moment(),
-            formatted_date = current_datetime.format('YYYY-MM-DD HH:mm:ss'),
-            items = {
-              id_do: this.id_do,
-              no_do: this.delivery,
-              created_date: formatted_date,
-              created_by: localStorage.getItem('username'),
-              tanggal: formatted_date,
-              status: this.status,
-              id_warehouse: this.id_warehouse,
-              id_tracking: uuid()
-            }
-        axios
-        .post('http://103.233.109.131:5500/inputTracking', items)
-          .then((response) => {
-            this.text = 'Data berhasil diperbarui...'
-            this.snackbar = true
-          })
-          .catch((error) => {
-            this.text = 'Terjadi kesalahan...'
-            this.snackbar = true
-          })
-      },
-      getDetails () {
-        axios.all([
-          axios.get('http://103.233.109.131:5500/tracking/' + this.delivery)
-        ])
-        .then(axios.spread((rows) => {
-          // send detail
-          this.id_do = rows.data[0][0].ID_DO;
-          this.courier = rows.data[0][0].NAMA[1];
-          this.stockist = rows.data[0][0].CODE_STOCKIES;
-          this.name = rows.data[0][0].NAMA[0];
-          this.address = rows.data[0][0].ALAMAT1;
-          this.warehouse = rows.data[0][0].WAREHOUSE_NAME;
-          this.id_warehouse = rows.data[0][0].ID_WAREHOUSE;
-
-          // send status
-          this.details = rows.data[1]
-          this.expand = true
-        }))
-        .catch((error) => {
-          this.text = 'Uh-oh...! Something goes wrong'
-          this.snackbar = true
-        })
       }
     },
-  }
+    reset () {
+      this.$refs.form.reset()
+      this.expand = false
+    },
+    submit () {
+      let current_datetime = moment(),
+          formatted_date = current_datetime.format('YYYY-MM-DD HH:mm:ss'),
+          items = {
+            id_do: this.id_do,
+            no_do: this.delivery,
+            created_date: formatted_date,
+            created_by: localStorage.getItem('username'),
+            tanggal: formatted_date,
+            status: this.status,
+            id_warehouse: this.id_warehouse,
+            id_tracking: uuid()
+          }
+      axios
+      .post(process.env.VUE_APP_API_URL+'inputTracking', items)
+      .then((response) => {
+        this.text = 'Data berhasil diperbarui...'
+        this.snackbar = true
+      })
+      .catch((error) => {
+        this.text = 'Terjadi kesalahan...'
+        this.snackbar = true
+      })
+    },
+    getDetails () {
+      axios.all([
+        axios.get(process.env.VUE_APP_API_URL+'tracking/' + this.delivery)
+      ])
+      .then(axios.spread((rows) => {
+        // send detail
+        this.id_do = rows.data[0][0].ID_DO;
+        this.courier = rows.data[0][0].NAMA[1];
+        this.stockist = rows.data[0][0].CODE_STOCKIES;
+        this.name = rows.data[0][0].NAMA[0];
+        this.address = rows.data[0][0].ALAMAT1;
+        this.warehouse = rows.data[0][0].WAREHOUSE_NAME;
+        this.id_warehouse = rows.data[0][0].ID_WAREHOUSE;
+
+        // send status
+        this.details = rows.data[1]
+        this.expand = true
+      }))
+      .catch((error) => {
+        this.text = 'Uh-oh...! Something goes wrong'
+        this.snackbar = true
+      })
+    }
+  },
+}
 </script>

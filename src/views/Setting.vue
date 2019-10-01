@@ -70,56 +70,75 @@
 </style>
 
 <script>
-  export default {
-    data: () => ({
-      user: localStorage.getItem('username'),
-      snackbar: false,
-      timeout: 3000,
-      text: '',
-      valid: true,
-      confirmPassword: '',
-      oldPassword: '',
-      oldPasswordRules: [
-        v => !!v || 'Password lama tidak boleh kosong',
-      ],
-      newPassword: '',
-      newPasswordRules: [
-        v => !!v || 'Password baru tidak boleh kosong',
-      ]
-    }),
+import axios from "axios";
 
-    computed: {
-      rules () {
-        const rules = []
-        if (this.newPassword) {
-          const rule =
-            v => (!!v && v) === this.newPassword || "Password doesn't match"
-          rules.push(rule)
-        }
-        return rules
-      },
+export default {
+  data: () => ({
+    user: localStorage.getItem('username'),
+    snackbar: false,
+    timeout: 3000,
+    text: '',
+    valid: true,
+    confirmPassword: '',
+    oldPassword: '',
+    oldPasswordRules: [
+      v => !!v || 'Password lama tidak boleh kosong',
+    ],
+    newPassword: '',
+    newPasswordRules: [
+      v => !!v || 'Password baru tidak boleh kosong',
+    ]
+  }),
+
+  computed: {
+    rules () {
+      const rules = []
+      if (this.newPassword) {
+        const rule =
+          v => (!!v && v) === this.newPassword || "Password doesn't match"
+        rules.push(rule)
+      }
+      return rules
     },
+  },
 
-    watch: {
-      confirmPassword: 'validateField',
-      newPassword: 'validateField',
+  watch: {
+    confirmPassword: 'validateField',
+    newPassword: 'validateField',
+  },
+
+  methods: {
+    validateField () {
+      this.$refs.form.validate()
     },
-
-    methods: {
-      validateField () {
-        this.$refs.form.validate()
-      },
-      validate () {
-        if (this.$refs.form.validate()) {
-          this.snackbar = true
-          this.formHasErrors = false
-          this.submit()
-          this.reset()
-        }
-      },
-      reset () {
-        this.$refs.form.reset()
-      },
+    validate () {
+      if (this.$refs.form.validate()) {
+        this.snackbar = true
+        this.formHasErrors = false
+        this.submit()
+        this.reset()
+      }
+    },
+    reset () {
+      this.$refs.form.reset()
+    },
+    submit () {
+      let items = {
+        username: this.user,
+        oldpassword: this.oldPassword,
+        newpassword: this.newPassword
+      }
+      axios
+      .put(process.env.VUE_APP_API_URL+'updatePassCourier', items)
+      .then((response) => {
+        this.text = 'Password berhasil diubah...'
+        this.snackbar = true
+      })
+      .catch((err) => {
+        this.text = 'Terjadi kesalahan...'
+        this.snackbar = true
+      })
     }
   }
+}
 </script>

@@ -64,7 +64,7 @@ router.beforeEach((to, from, next) => {
 })
 
 router.replace({
-  path: 'home'
+  path: '/home'
 })
 
 export default router
