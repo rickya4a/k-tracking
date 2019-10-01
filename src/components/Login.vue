@@ -21,7 +21,6 @@
               type="error"
               dark
               transition="scale-transition"
-              dismissible
             >
               Username atau password salah
             </v-alert>
