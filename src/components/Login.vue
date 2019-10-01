@@ -16,13 +16,12 @@
             md="4"
           >
             <v-alert
-              outlined
-              dense
-              v-if="authErr"
+              v-show="authErr"
               class="elevation-21"
               type="error"
               dark
               transition="scale-transition"
+              dismissible
             >
               Username atau password salah
             </v-alert>
@@ -88,12 +87,12 @@ export default {
     }
   },
   data: () => ({
-    drawer: null,
     alert: true,
     valid: true,
     username: '',
     usernameRules: [
-      v => !!v || 'Username tidak boleh kosong'
+      v => !!v || 'Username tidak boleh kosong',
+      v => /\w/.test(v) || 'Username harus menggunakan alpha-numeric'
     ],
     password: '',
     passwordRules: [

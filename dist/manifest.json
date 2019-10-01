@@ -1,6 +1,6 @@
 {
-  "name": "spa-app",
-  "short_name": "spa-app",
+  "name": "K-Tracking",
+  "short_name": "K-Tracking",
   "icons": [
     {
       "src": "./img/icons/android-chrome-192x192.png",

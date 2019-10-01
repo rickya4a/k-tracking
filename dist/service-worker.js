@@ -14,10 +14,10 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.83cbde71ea0e6f4d0e0b195b960fbea7.js"
+  "/precache-manifest.23c08b687d38fe1915fd99d46a511e8d.js"
 );
 
-workbox.core.setCacheNameDetails({prefix: "spa-app"});
+workbox.core.setCacheNameDetails({prefix: "K-Tracking"});
 
 /**
  * The workboxSW.precacheAndRoute() method efficiently caches and responds to
