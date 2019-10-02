@@ -174,10 +174,9 @@ export default {
     validate () {
       if (this.$refs.form.validate()) {
         this.snackbar = true
-        this.formHasErrors = false
+        this.expand = false
         this.submit()
         this.reset()
-        this.expand = false
       }
     },
     reset () {

@@ -91,7 +91,7 @@ export default {
     username: '',
     usernameRules: [
       v => !!v || 'Username tidak boleh kosong',
-      v => /\w/.test(v) || 'Username harus menggunakan alpha-numeric'
+      v => /\w/.test(v) || 'Username harus menggunakan huruf dan angka'
     ],
     password: '',
     passwordRules: [
@@ -102,7 +102,6 @@ export default {
     validate () {
       if (this.$refs.form.validate()) {
         this.snackbar = true
-        this.formHasErrors = false
         this.login()
       }
     },
