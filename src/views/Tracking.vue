@@ -162,12 +162,7 @@ export default {
     stockist: '',
     stockistRules: [
       v => !!v || 'Stokis tidak boleh kosong'
-    ],
-    email: '',
-    emailRules: [
-      v => !!v || 'E-mail is required',
-      v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
-    ],
+    ]
   }),
 
   methods: {
