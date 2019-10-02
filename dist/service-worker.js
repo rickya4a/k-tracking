@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.4bbfaec89e4e3e14ca67500ff10becb1.js"
+  "/precache-manifest.13bbb874e15e56802e2b0637e9f31a49.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "k-tracking"});
