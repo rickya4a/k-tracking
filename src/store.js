@@ -38,7 +38,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         commit('auth_request')
         axios({
-          url: process.env.VUE_APP_API_URL+'findCourier',
+          url: `${process.env.VUE_APP_API_URL}findCourier`,
           data: payload,
           method: 'POST'
         })

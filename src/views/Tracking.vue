@@ -192,7 +192,7 @@ export default {
             id_tracking: uuid()
           }
       axios
-      .post(process.env.VUE_APP_API_URL+'inputTracking', items)
+      .post(`${process.env.VUE_APP_API_URL}inputTracking`, items)
       .then((response) => {
         this.text = 'Data berhasil diperbarui...'
         this.snackbar = true
@@ -204,7 +204,7 @@ export default {
     },
     getDetails () {
       axios.all([
-        axios.get(process.env.VUE_APP_API_URL+'tracking/' + this.delivery)
+        axios.get(`${process.env.VUE_APP_API_URL}tracking/${this.delivery}`)
       ])
       .then(axios.spread((rows) => {
         // send detail

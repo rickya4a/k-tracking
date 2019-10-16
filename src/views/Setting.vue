@@ -53,9 +53,11 @@
           v-model="snackbar"
           :timeout="timeout"
         >{{ text }}
-          <v-btn color="blue" text @click="snackbar = false">
-            Close
-          </v-btn>
+          <v-btn
+            color="blue"
+            text
+            @click="snackbar = false"
+          >Close</v-btn>
         </v-snackbar>
       </v-form>
     </v-container>
@@ -129,12 +131,12 @@ export default {
         newpassword: this.newPassword
       }
       axios
-      .put(process.env.VUE_APP_API_URL+'updatePassCourier', items)
-      .then((response) => {
+      .put(`${process.env.VUE_APP_API_URL}updatePassCourier`, items)
+      .then(() => {
         this.text = 'Password berhasil diubah...'
         this.snackbar = true
       })
-      .catch((err) => {
+      .catch(() => {
         this.text = 'Terjadi kesalahan...'
         this.snackbar = true
       })

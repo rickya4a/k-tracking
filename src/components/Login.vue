@@ -46,6 +46,7 @@
                     prepend-icon="person"
                     v-model="username"
                     :rules="usernameRules"
+                    @keyup.enter="validate"
                   ></v-text-field>
 
                   <v-text-field
@@ -56,6 +57,7 @@
                     prepend-icon="lock"
                     v-model="password"
                     :rules="passwordRules"
+                    @keyup.enter="validate"
                   ></v-text-field>
                 </v-form>
               </v-card-text>
@@ -86,7 +88,6 @@ export default {
     }
   },
   data: () => ({
-    alert: true,
     valid: true,
     username: '',
     usernameRules: [
