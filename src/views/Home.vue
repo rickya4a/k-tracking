@@ -78,7 +78,7 @@ export default {
   mounted () {
     axios
     .get(`${process.env.VUE_APP_API_URL}tracking`)
-    .then((response) => this.items = response.data.values)
+    .then((response) => this.items = response.data)
     .then(() => this.isLoading = !this.isLoading)
     .catch((error) => console.log(error))
   }
