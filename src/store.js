@@ -3,7 +3,6 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import { stat } from 'fs'
-const VueSession = require('vue-session')
 
 Vue.use(Vuex)
 
@@ -39,7 +38,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         commit('auth_request')
         axios({
-          url: process.env.VUE_APP_API_URL+'findCourier',
+          url: `${process.env.VUE_APP_API_URL}findCourier`,
           data: payload,
           method: 'POST'
         })

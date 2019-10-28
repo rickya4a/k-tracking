@@ -17,12 +17,27 @@
         :items-per-page="5"
         :search="search"
         class="elevation-1"
+        :loading="isLoading"
+        loading-text="Memuat... Mohon tunggu"
       >
         <template slot="items" slot-scope="props">
           <td>{{ props.item.NO_DO }}</td>
           <td class="text-xs-right">{{ props.item.STATUS }}</td>
           <td class="text-xs-right">{{ props.item.TANGGAL }}</td>
           <td class="text-xs-right">{{ props.item.CREATED_BY }}</td>
+        </template>
+        <template v-slot:no-results>
+          <v-container>
+            <v-alert
+              :value="true"
+              type="error"
+              text
+              dense
+              outlined
+            >
+              Pencarian untuk {{ search }} tidak ditemukan.
+            </v-alert>
+          </v-container>
         </template>
       </v-data-table>
     </v-card>
@@ -45,17 +60,16 @@
 </style>
 
 <script>
+/* eslint-disable no-console */
 import axios from 'axios'
+
 export default {
   data: () => ({
     search: "",
+    isLoading: true,
     items: [],
     headers: [
-      {
-        text: 'No. DO',
-        sortable: false,
-        value: 'NO_DO'
-      },
+      { text: 'No. DO', value: 'NO_DO' },
       { text: 'Status', value: 'STATUS' },
       { text: 'Tanggal', value: 'TANGGAL' },
       { text: 'Dibuat', value: 'CREATED_BY' }
@@ -63,8 +77,9 @@ export default {
   }),
   mounted () {
     axios
-    .get(process.env.VUE_APP_API_URL+'tracking')
-    .then((response) => (this.items = response.data.values))
+    .get(`${process.env.VUE_APP_API_URL}tracking`)
+    .then((response) => this.items = response.data)
+    .then(() => this.isLoading = !this.isLoading)
     .catch((error) => console.log(error))
   }
 }

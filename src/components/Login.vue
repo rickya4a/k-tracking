@@ -21,7 +21,6 @@
               type="error"
               dark
               transition="scale-transition"
-              dismissible
             >
               Username atau password salah
             </v-alert>
@@ -47,6 +46,7 @@
                     prepend-icon="person"
                     v-model="username"
                     :rules="usernameRules"
+                    @keyup.enter="validate"
                   ></v-text-field>
 
                   <v-text-field
@@ -57,6 +57,7 @@
                     prepend-icon="lock"
                     v-model="password"
                     :rules="passwordRules"
+                    @keyup.enter="validate"
                   ></v-text-field>
                 </v-form>
               </v-card-text>
@@ -87,12 +88,11 @@ export default {
     }
   },
   data: () => ({
-    alert: true,
     valid: true,
     username: '',
     usernameRules: [
       v => !!v || 'Username tidak boleh kosong',
-      v => /\w/.test(v) || 'Username harus menggunakan alpha-numeric'
+      v => /\w/.test(v) || 'Username harus menggunakan huruf dan angka'
     ],
     password: '',
     passwordRules: [
@@ -103,7 +103,6 @@ export default {
     validate () {
       if (this.$refs.form.validate()) {
         this.snackbar = true
-        this.formHasErrors = false
         this.login()
       }
     },

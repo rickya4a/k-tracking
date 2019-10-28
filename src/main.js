@@ -5,23 +5,24 @@ import store from './store'
 import vuetify from './plugins/vuetify'
 import './registerServiceWorker'
 import './assets/style.scss'
-import vueHeadful from 'vue-headful'
 import axios from 'axios'
-import VueSession from 'vue-session'
-
-Vue.use(VueSession)
-
-Vue.component('vue-headful', vueHeadful)
+import moment from 'moment'
 
 Vue.config.productionTip = false
 
+// Create global filters
+Vue.filter('formatDate', value => {
+  return moment(String(value)).format('MMMM Do YYYY')
+})
+
+// axios global config and set HTTP Headers
 Vue.prototype.$http = axios
 const token = localStorage.getItem('token')
 if (token) {
   Vue.prototype.$http.defaults.headers['Authorization'] = `Bearer ${token}`
 }
 
-
+// Create Vue instance
 new Vue({
   router,
   store,

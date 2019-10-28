@@ -26,15 +26,6 @@
           </v-list-item-content>
         </v-list-item>
 
-        <!-- <v-list-item to="/home/status">
-          <v-list-item-action>
-            <v-icon>mdi-chart-timeline-variant</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Status</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item> -->
-
         <v-list-item to="/home/setting">
           <v-list-item-action>
             <v-icon>mdi-settings</v-icon>
@@ -43,21 +34,16 @@
             <v-list-item-title>Setting</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-      </v-list>
 
-      <template
-        v-slot:append
-        v-if="isLoggedIn"
-      >
-        <div class="pa-2">
-          <v-btn
-            block
-            @click="logout"
-            color="green"
-            :elevation="10"
-          >Logout</v-btn>
-        </div>
-      </template>
+        <v-list-item @click="logout">
+          <v-list-item-action>
+            <v-icon>mdi-logout</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Logout</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
     </v-navigation-drawer>
 
     <v-app-bar

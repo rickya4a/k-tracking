@@ -5,7 +5,6 @@ import Layout from './components/Layout.vue'
 import Home from './views/Home.vue'
 import Login from './components/Login.vue'
 import Tracking from './views/Tracking.vue'
-import Status from './views/Status.vue'
 import Setting from './views/Setting.vue'
 
 Vue.use(Router)
@@ -30,11 +29,6 @@ const router = new Router({
           path: 'tracking',
           name: 'tracking',
           component: Tracking
-        },
-        {
-          path: 'status',
-          name: 'status',
-          component: Status
         },
         {
           path: 'setting',
