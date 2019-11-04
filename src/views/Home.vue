@@ -1,12 +1,12 @@
 <template>
-  <v-layout>
+  <v-container>
     <v-card>
       <v-card-title>Status
         <div class="flex-grow-1"></div>
         <v-text-field
           v-model="search"
           append-icon="search"
-          label="Search"
+          label="Cari"
           single-line
           hide-details
         ></v-text-field>
@@ -41,7 +41,7 @@
         </template>
       </v-data-table>
     </v-card>
-  </v-layout>
+  </v-container>
 </template>
 
 <style scoped>

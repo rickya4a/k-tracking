@@ -1,67 +1,69 @@
 <template>
-  <v-card>
-    <v-container>
-    <v-card-title>{{ user }}</v-card-title>
-    <v-card-text>Ubah Password</v-card-text>
-      <v-form ref="form"
-        v-model="valid"
-        lazy-validation
-      >
-        <v-text-field
-          v-model="oldPassword"
-          :rules="oldPasswordRules"
-          type="password"
-          label="Password Lama"
-          required
-        ></v-text-field>
+  <v-container>
+    <v-card>
+      <v-container>
+      <v-card-title>{{ user }}</v-card-title>
+      <v-card-text>Ubah Password</v-card-text>
+        <v-form ref="form"
+          v-model="valid"
+          lazy-validation
+        >
+          <v-text-field
+            v-model="oldPassword"
+            :rules="oldPasswordRules"
+            type="password"
+            label="Password Lama"
+            required
+          ></v-text-field>
 
-        <v-text-field
-          v-model="newPassword"
-          :rules="newPasswordRules"
-          type="password"
-          label="Password Baru"
-          required
-        ></v-text-field>
+          <v-text-field
+            v-model="newPassword"
+            :rules="newPasswordRules"
+            type="password"
+            label="Password Baru"
+            required
+          ></v-text-field>
 
-        <v-text-field
-          v-model="confirmPassword"
-          type="password"
-          :rules="rules"
-          label="Konfirmasi Password"
-          required
-        ></v-text-field>
+          <v-text-field
+            v-model="confirmPassword"
+            type="password"
+            :rules="rules"
+            label="Konfirmasi Password"
+            required
+          ></v-text-field>
 
-        <v-item-group>
-          <v-btn
-            :disabled="!valid"
-            color="success"
-            class="mr-4"
-            elevation="5"
-            @click="validate"
-          >Submit</v-btn>
+          <v-item-group>
+            <v-btn
+              :disabled="!valid"
+              color="success"
+              class="mr-4"
+              elevation="5"
+              @click="validate"
+            >Submit</v-btn>
 
-          <v-btn
-            color="warning"
-            class="mr-4"
-            elevation="5"
-            @click="reset"
-          >Reset</v-btn>
-        </v-item-group>
+            <v-btn
+              color="warning"
+              class="mr-4"
+              elevation="5"
+              @click="reset"
+            >Reset</v-btn>
+          </v-item-group>
 
-        <!-- Alert -->
-        <v-snackbar
-          v-model="snackbar"
-          :timeout="timeout"
-        >{{ text }}
-          <v-btn
-            color="blue"
-            text
-            @click="snackbar = false"
-          >Close</v-btn>
-        </v-snackbar>
-      </v-form>
-    </v-container>
-  </v-card>
+          <!-- Alert -->
+          <v-snackbar
+            v-model="snackbar"
+            :timeout="timeout"
+          >{{ text }}
+            <v-btn
+              color="blue"
+              text
+              @click="snackbar = false"
+            >Close</v-btn>
+          </v-snackbar>
+        </v-form>
+      </v-container>
+    </v-card>
+  </v-container>
 </template>
 
 <style scoped>

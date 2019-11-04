@@ -6,6 +6,7 @@ import Home from './views/Home.vue'
 import Login from './components/Login.vue'
 import Tracking from './views/Tracking.vue'
 import Setting from './views/Setting.vue'
+import Search from './views/Search.vue'
 
 Vue.use(Router)
 
@@ -34,6 +35,11 @@ const router = new Router({
           path: 'setting',
           name: 'setting',
           component: Setting
+        },
+        {
+          path: 'search',
+          name: 'search',
+          component: Search
         }
       ]
     },

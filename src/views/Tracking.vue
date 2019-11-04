@@ -1,114 +1,128 @@
 <template>
-  <v-card>
-    <v-container>
-      <v-card-title>Tracking Status</v-card-title>
-      <!-- Main form -->
-      <v-form ref="form" v-model="valid" lazy-validation>
-        <v-text-field
-          v-model="delivery"
-          :rules="deliveryRules"
-          label="No. DO."
-          @change="getDetails"
-          required
+  <v-container>
+    <v-card>
+      <v-container>
+        <v-card-title>Tracking Status</v-card-title>
+        <!-- Main form -->
+        <v-form
+          ref="form"
+          v-model="valid"
+          lazy-validation
         >
-        </v-text-field>
+          <v-text-field
+            v-model="delivery"
+            :rules="deliveryRules"
+            label="No. DO."
+            readonly
+          ></v-text-field>
 
-        <input type="hidden" v-model="id_do">
+          <input type="hidden" v-model="id_do">
 
-        <v-text-field
-          v-model="courier"
-          :rules="courierRules"
-          label="Nama Kurir"
-          required
-        ></v-text-field>
+          <v-text-field
+            v-model="courier"
+            :rules="courierRules"
+            label="Nama Kurir"
+            readonly
+          ></v-text-field>
 
-        <v-text-field
-          v-model="stockist"
-          :rules="stockistRules"
-          label="Kode Stockist"
-          required
-        ></v-text-field>
+          <v-text-field
+            v-model="stockist"
+            :rules="stockistRules"
+            label="Kode Stockist"
+            readonly
+          ></v-text-field>
 
-        <v-text-field
-          v-model="name"
-          :rules="nameRules"
-          label="Nama"
-          required
-        ></v-text-field>
+          <v-text-field
+            v-model="name"
+            :rules="nameRules"
+            label="Nama"
+            readonly
+          ></v-text-field>
 
-        <v-text-field
-          v-model="address"
-          :rules="addressRules"
-          label="Alamat"
-          required
-        ></v-text-field>
+          <v-text-field
+            v-model="address"
+            :rules="addressRules"
+            label="Alamat"
+            readonly
+          ></v-text-field>
 
-        <v-text-field
-          v-model="warehouse"
-          :rules="warehouseRules"
-          label="Gudang"
-          required
-        ></v-text-field>
+          <v-text-field
+            v-model="warehouse"
+            :rules="warehouseRules"
+            label="Gudang"
+            readonly
+          ></v-text-field>
 
-        <v-text-field
-          v-model="status"
-          :rules="statusRules"
-          label="Status"
-          required
-        ></v-text-field>
+          <v-text-field
+            v-model="status"
+            :rules="statusRules"
+            label="Status"
+            readonly
+          ></v-text-field>
 
-        <input type="hidden" v-model="id_warehouse">
+          <input type="hidden" v-model="id_warehouse">
 
-        <v-item-group>
-          <v-btn
-            :disabled="!valid"
-            color="success"
-            class="mr-4"
-            elevation="5"
-            @click="validate"
-          >Submit</v-btn>
-          <v-btn
-            color="warning"
-            class="mr-4"
-            elevation="5"
-            @click="reset"
-          >Reset</v-btn>
-        </v-item-group>
+          <v-item-group>
+            <v-btn
+              :disabled="!valid"
+              color="success"
+              class="mr-4"
+              elevation="5"
+              @click="validate"
+            >Submit</v-btn>
+            <v-btn
+              color="warning"
+              class="mr-4"
+              elevation="5"
+              @click="reset"
+            >Reset</v-btn>
+          </v-item-group>
+        </v-form>
+      </v-container>
+    </v-card>
 
-        <!-- Detail status -->
-        <v-expand-transition>
-          <v-card class="mx-auto divider" v-show="expand">
-            <v-card-title>Tracking Status</v-card-title>
-            <v-simple-table>
-              <thead>
-                <tr>
-                  <th class="text-left">Status</th>
-                  <th class="text-left">Created By</th>
-                  <th class="text-left">Created Date</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="detail in details" :key="detail.ID_DO">
-                  <td>{{ detail.STATUS }}</td>
-                  <td>{{ detail.CREATED_BY }}</td>
-                  <td>{{ detail.CREATED_DATE }}</td>
-                </tr>
-              </tbody>
-            </v-simple-table>
-          </v-card>
-        </v-expand-transition>
+    <div class="my-5"></div>
 
-        <!-- Alert -->
-        <v-snackbar v-model="snackbar" :timeout="timeout">
-          {{ text }}
-          <v-btn color="blue" text @click="snackbar = false">
-            Close
-          </v-btn>
-        </v-snackbar>
+    <!-- Detail status -->
+    <v-expand-transition>
+      <v-card
+        class="mx-auto divider"
+        v-show="expand"
+      >
+        <v-card-title>Tracking Status</v-card-title>
+        <v-simple-table>
+          <thead>
+            <tr>
+              <th class="text-left">Status</th>
+              <th class="text-left">Created By</th>
+              <th class="text-left">Created Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="detail in details" :key="detail.ID_DO">
+              <td>{{ detail.STATUS }}</td>
+              <td>{{ detail.CREATED_BY }}</td>
+              <td>{{ detail.CREATED_DATE }}</td>
+            </tr>
+          </tbody>
+        </v-simple-table>
+      </v-card>
+    </v-expand-transition>
 
-      </v-form>
-    </v-container>
-  </v-card>
+    <!-- Alert -->
+    <v-snackbar
+      v-model="snackbar"
+      :timeout="timeout"
+    >{{ text }}
+      <v-btn
+        color="blue"
+        text
+        @click="snackbar = false"
+      >Close</v-btn>
+    </v-snackbar>
+
+
+  </v-container>
 </template>
 
 <style scoped>
@@ -201,30 +215,31 @@ export default {
         this.text = 'Terjadi kesalahan...'
         this.snackbar = true
       })
-    },
-    getDetails () {
-      axios.all([
-        axios.get(`${process.env.VUE_APP_API_URL}tracking/${this.delivery}`)
-      ])
-      .then(axios.spread((rows) => {
-        // send detail
-        this.id_do = rows.data[0][0].ID_DO;
-        this.courier = rows.data[0][0].NAMA[1];
-        this.stockist = rows.data[0][0].CODE_STOCKIES;
-        this.name = rows.data[0][0].NAMA[0];
-        this.address = rows.data[0][0].ALAMAT1;
-        this.warehouse = rows.data[0][0].WAREHOUSE_NAME;
-        this.id_warehouse = rows.data[0][0].ID_WAREHOUSE;
-
-        // send status
-        this.details = rows.data[1]
-        this.expand = true
-      }))
-      .catch((error) => {
-        this.text = 'Uh-oh...! Something goes wrong'
-        this.snackbar = true
-      })
     }
   },
+  created () {
+    axios.all([
+      axios.get(`${process.env.VUE_APP_API_URL}tracking/${this.$store.getters.getDO}`)
+    ])
+    .then(axios.spread((rows) => {
+      // send detail
+      this.id_do = rows.data[0][0].ID_DO;
+      this.courier = rows.data[0][0].NAMA[1];
+      this.stockist = rows.data[0][0].CODE_STOCKIES;
+      this.name = rows.data[0][0].NAMA[0];
+      this.address = rows.data[0][0].ALAMAT1;
+      this.warehouse = rows.data[0][0].WAREHOUSE_NAME;
+      this.id_warehouse = rows.data[0][0].ID_WAREHOUSE;
+      this.delivery = this.$store.getters.getDO;
+
+      // send status
+      this.details = rows.data[1]
+      this.expand = true
+    }))
+    .catch((error) => {
+      this.text = 'Uh-oh...! Something goes wrong'
+      this.snackbar = true
+    })
+  }
 }
 </script>

@@ -11,7 +11,8 @@ export default new Vuex.Store({
     status: '',
     error: false,
     token: localStorage.getItem('token') || '',
-    username : {}
+    username: {},
+    no_do: ''
   },
   mutations: {
     auth_request(state) {
@@ -23,15 +24,18 @@ export default new Vuex.Store({
       state.token = localStorage.getItem('token')
       state.username = localStorage.getItem('username')
     },
-    auth_error(state){
+    auth_error(state) {
       state.status = 'error'
       state.error = true
     },
-    logout(state){
+    logout(state) {
       state.status = ''
       state.token = ''
       state.error = ''
     },
+    get_data(state, payload) {
+      state.no_do = payload
+    }
   },
   actions: {
     login({ commit }, payload) {
@@ -45,8 +49,10 @@ export default new Vuex.Store({
           .then(res => {
             const token = res.data.token
             const username = res.data.user[0].USERNAME
+            const parent_courier = res.data.user[0].PARENT_COURIER
             localStorage.setItem('token', token)
             localStorage.setItem('username', username)
+            localStorage.setItem('parent_courier', parent_courier)
             axios.defaults.headers['Authorization'] = `Bearer ${token}`
             commit('auth_success', token, username)
             resolve(res)
@@ -70,6 +76,7 @@ export default new Vuex.Store({
   getters: {
     isLoggedIn: state => !!state.token,
     authStatus: state => state.status,
-    authErr: state => state.error
+    authErr: state => state.error,
+    getDO: state => state.no_do
   }
 })
