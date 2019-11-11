@@ -46,22 +46,22 @@ export default new Vuex.Store({
           data: payload,
           method: 'POST'
         })
-          .then(res => {
-            const token = res.data.token
-            const username = res.data.user[0].USERNAME
-            const parent_courier = res.data.user[0].PARENT_COURIER
-            localStorage.setItem('token', token)
-            localStorage.setItem('username', username)
-            localStorage.setItem('parent_courier', parent_courier)
-            axios.defaults.headers['Authorization'] = `Bearer ${token}`
-            commit('auth_success', token, username)
-            resolve(res)
-          })
-          .catch(err => {
-            commit('auth_error')
-            localStorage.removeItem('token')
-            reject(err)
-          })
+        .then(res => {
+          const token = res.data.token
+          const username = res.data.user[0].USERNAME
+          const parent_courier = res.data.user[0].PARENT_COURIER
+          localStorage.setItem('token', token)
+          localStorage.setItem('username', username)
+          localStorage.setItem('parent_courier', parent_courier)
+          axios.defaults.headers['Authorization'] = `Bearer ${token}`
+          commit('auth_success', token, username)
+          resolve(res)
+        })
+        .catch(err => {
+          commit('auth_error')
+          localStorage.removeItem('token')
+          reject(err)
+        })
       })
     },
     logout({ commit }) {

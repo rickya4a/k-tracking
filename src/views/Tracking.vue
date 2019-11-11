@@ -207,11 +207,11 @@ export default {
           }
       axios
       .post(`${process.env.VUE_APP_API_URL}inputTracking`, items)
-      .then((response) => {
+      .then(response => {
         this.text = 'Data berhasil diperbarui...'
         this.snackbar = true
       })
-      .catch((error) => {
+      .catch(error => {
         this.text = 'Terjadi kesalahan...'
         this.snackbar = true
       })
@@ -221,7 +221,7 @@ export default {
     axios.all([
       axios.get(`${process.env.VUE_APP_API_URL}tracking/${this.$store.getters.getDO}`)
     ])
-    .then(axios.spread((rows) => {
+    .then(axios.spread(rows => {
       // send detail
       this.id_do = rows.data[0][0].ID_DO;
       this.courier = rows.data[0][0].NAMA[1];
@@ -236,7 +236,7 @@ export default {
       this.details = rows.data[1]
       this.expand = true
     }))
-    .catch((error) => {
+    .catch(error => {
       this.text = 'Uh-oh...! Something goes wrong'
       this.snackbar = true
     })
