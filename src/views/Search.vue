@@ -292,7 +292,7 @@ export default {
       if (this.editedIndex > -1) {
         console.dir(this.editedItem)
         let current_datetime = moment(),
-          formatted_date = current_datetime.format('YYYY-MM-DD HH:MM:SS'),
+          formatted_date = current_datetime.format('YYYY-MM-DD HH:mm:ss'),
           items = {
             id_do: this.editedItem.ID_DO,
             no_do: this.editedItem.NO_DO,
