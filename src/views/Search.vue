@@ -150,7 +150,7 @@
                       <v-col cols="12" sm="6" md="12">
                         <v-text-field
                           v-model="editedItem.ALAMAT"
-                          label="Status"
+                          label="Alamat"
                         ></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="6">
@@ -238,7 +238,9 @@ export default {
       NO_RESI: '',
       TANGGAL_DO: '',
       ALAMAT: '',
-      STATUS: ''
+      STATUS: '',
+      KOLI: '',
+      BERAT: ''
     },
     defaultItem: {
       NO_DO: '',
@@ -290,7 +292,7 @@ export default {
       if (this.editedIndex > -1) {
         console.dir(this.editedItem)
         let current_datetime = moment(),
-          formatted_date = current_datetime.format('YYYY-MM-DD HH:mm:ss'),
+          formatted_date = current_datetime.format('YYYY-MM-DD'),
           items = {
             id_do: this.editedItem.ID_DO,
             no_do: this.editedItem.NO_DO,
@@ -299,6 +301,8 @@ export default {
             tanggal: this.editedItem.TANGGAL_DO,
             status: this.editedItem.STATUS,
             id_warehouse: this.id_warehouse,
+            koli: this.editedItem.KOLI,
+            berat: this.editedItem.BERAT,
             id_tracking: uuid()
           }
         axios
