@@ -240,7 +240,7 @@ export default {
       ALAMAT: '',
       STATUS: '',
       KOLI: '',
-      BERAT: ''
+      BERAT: '',
     },
     defaultItem: {
       NO_DO: '',
@@ -300,7 +300,7 @@ export default {
             created_by: localStorage.getItem('username'),
             tanggal: this.editedItem.TANGGAL_DO,
             status: this.editedItem.STATUS,
-            id_warehouse: this.id_warehouse,
+            id_warehouse: this.editedItem.ID_WAREHOUSE,
             koli: this.editedItem.KOLI,
             berat: this.editedItem.BERAT,
             id_tracking: uuid()
