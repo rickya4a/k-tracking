@@ -133,24 +133,32 @@
                         <v-text-field
                           v-model="editedItem.NO_DO"
                           label="No. Delivery Order"
+                          readonly
+                          disabled
                         ></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
                         <v-text-field
                           v-model="editedItem.NO_RESI"
                           label="No. Resi"
+                          readonly
+                          disabled
                         ></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
                         <v-text-field
                           v-model="editedItem.TANGGAL_DO"
                           label="Tanggal DO"
+                          readonly
+                          disabled
                         ></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="12">
                         <v-text-field
-                          v-model="editedItem.ALAMAT"
+                          v-model="editedItem.ALAMAT1"
                           label="Alamat"
+                          readonly
+                          disabled
                         ></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="6">
@@ -290,7 +298,7 @@ export default {
     },
     save () {
       if (this.editedIndex > -1) {
-        console.dir(this.editedItem)
+        console.log(this.editedItem)
         let current_datetime = moment(),
           formatted_date = current_datetime.format('YYYY-MM-DD HH:mm:ss'),
           items = {
@@ -305,14 +313,15 @@ export default {
             berat: this.editedItem.BERAT,
             id_tracking: uuid()
           }
-        axios
+          console.dir(items)
+       /*  axios
         .post(`${process.env.VUE_APP_API_URL}inputTracking`, items)
         .then(response => {
           console.log('Success...')
         })
         .catch(error => {
           console.log(error)
-        })
+        }) */
       } else {
         this.items.push(this.editedItem)
       }

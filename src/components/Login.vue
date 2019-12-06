@@ -109,9 +109,11 @@ export default {
     login () {
       let username = this.username
       let password = this.password
+      let appkey = 'k-tracking'
       this.$store.dispatch('login', {
         username,
-        password
+        password,
+        appkey
       })
       .then(() => {
         this.$router.push('home')
