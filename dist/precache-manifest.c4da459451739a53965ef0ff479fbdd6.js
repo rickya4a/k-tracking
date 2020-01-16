@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "c8bf31b58c17abc87ea4",
+    "revision": "6fa1e47a547c41455f4f",
     "url": "/css/app.5602d50d.css"
   },
   {
-    "revision": "c8bf31b58c17abc87ea4",
-    "url": "/js/app.4504cee9.js"
+    "revision": "6fa1e47a547c41455f4f",
+    "url": "/js/app.3b8bc0b1.js"
   },
   {
     "revision": "45641fa7eb17930a5e52",
@@ -200,7 +200,7 @@ self.__precacheManifest = [
     "url": "/assets/browserconfig.xml"
   },
   {
-    "revision": "4e637b6a2f546699c20f8cdb1a6d2d08",
+    "revision": "d00e335407b632c2050713b1173d2097",
     "url": "/index.html"
   },
   {
