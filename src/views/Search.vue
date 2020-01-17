@@ -7,31 +7,6 @@
           v-model="valid"
           lazy-validation
         >
-          <v-row>
-            <v-col>
-              <v-overflow-btn
-                v-model="stockist"
-                :rules="[v => !!v || 'Stokist tidak boleh kosong']"
-                :items="items"
-                item-text="ID_STOCKIES"
-                item-value="ID_STOCKIES"
-                label="Stockist"
-                required
-                editable
-                :loading="isLoading"
-                cache-items
-              >
-                <template
-                  slot="selection"
-                  slot-scope="data"
-                >{{ data.item.ID_STOCKIES }} - {{ data.item.NAMA_STOCKIES }}</template>
-                <template
-                  slot="item"
-                  slot-scope="data"
-                >{{ data.item.ID_STOCKIES }} - {{ data.item.NAMA_STOCKIES }}</template>
-              </v-overflow-btn>
-            </v-col>
-          </v-row>
 
           <v-row>
             <v-col sm="6" md="6">
@@ -155,7 +130,7 @@
                       </v-col>
                       <v-col cols="12" sm="6" md="12">
                         <v-text-field
-                          v-model="editedItem.ALAMAT1"
+                          v-model="editedItem.ALAMAT"
                           label="Alamat"
                           readonly
                           disabled
@@ -224,7 +199,6 @@ import moment from "moment"
 
 export default {
   data: () => ({
-    stockist: '',
     valid: true,
     items: [],
     dialog: false,
@@ -237,6 +211,8 @@ export default {
     menu2: false,
     headers: [
       { text: 'No. Delivery Order', value: 'NO_DO' },
+      { text: 'ID Stockist', value: 'ID_STOCKIES' },
+      { text: 'Nama', value: 'NAMA' },
       { text: 'No. Resi', value: 'NO_RESI' },
       { text: 'Tanggal DO', value: 'TANGGAL_DO' },
       { text: 'Actions', value: 'action', sortable: false }
@@ -252,6 +228,7 @@ export default {
     },
     defaultItem: {
       NO_DO: '',
+      ID_STOCKIES: '',
       NO_RESI: '',
       TANGGAL_DO: ''
     },
@@ -265,13 +242,12 @@ export default {
     },
     submit () {
       let items = {
-        id_stockies: this.stockist,
         tgl_awal: this.date_from,
         tgl_akhir: this.date_to,
-        ekspedisi: localStorage.getItem('parent_courier')
+        kurir: localStorage.getItem('parent_courier')
       }
       axios
-      .post(`${process.env.VUE_APP_API_URL}listDO`, items)
+      .post(`${process.env.VUE_APP_API_URL}getDoByDate`, items)
       .then(response => {
         this.showList = true
         this.items = response.data
@@ -298,7 +274,6 @@ export default {
     },
     save () {
       if (this.editedIndex > -1) {
-        console.log(this.editedItem)
         let current_datetime = moment(),
           formatted_date = current_datetime.format('YYYY-MM-DD HH:mm:ss'),
           items = {
@@ -313,15 +288,14 @@ export default {
             berat: this.editedItem.BERAT,
             id_tracking: uuid()
           }
-          console.dir(items)
-       /*  axios
+        axios
         .post(`${process.env.VUE_APP_API_URL}inputTracking`, items)
         .then(response => {
           console.log('Success...')
         })
         .catch(error => {
           console.log(error)
-        }) */
+        })
       } else {
         this.items.push(this.editedItem)
       }
