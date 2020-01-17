@@ -54,7 +54,7 @@ export default new Vuex.Store({
           localStorage.setItem('username', username)
           localStorage.setItem('parent_courier', parent_courier)
           axios.defaults.headers['Authorization'] = `Bearer ${token}`
-          commit('auth_success', token, username)
+          commit('auth_success')
           resolve(res)
         })
         .catch(err => {
@@ -67,7 +67,7 @@ export default new Vuex.Store({
     logout({ commit }) {
       return new Promise((resolve, reject) => {
         commit('logout')
-        localStorage.removeItem('token')
+        localStorage.clear()
         delete axios.defaults.headers['Authorization']
         resolve()
       })
