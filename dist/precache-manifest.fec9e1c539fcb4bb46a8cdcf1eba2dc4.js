@@ -8,15 +8,19 @@ self.__precacheManifest = [
     "url": "/js/chunk-vendors.9514f273.js"
   },
   {
-    "revision": "6ec987e1080540055fe4",
+    "revision": "4b5fc0a8871fdf86516c",
     "url": "/css/index.5602d50d.css"
   },
   {
-    "revision": "6ec987e1080540055fe4",
-    "url": "/js/index.9f96ea2c.js"
+    "revision": "4b5fc0a8871fdf86516c",
+    "url": "/js/index.a1a0614e.js"
   },
   {
-    "revision": "a7d4f91605042554a2c6bf0c6a59b970",
+    "revision": "d0f3e2e789e4257992420377349d0d81",
+    "url": "/img/k-link-logo2.d0f3e2e7.png"
+  },
+  {
+    "revision": "8d25063cef067baaa440bf4737fac538",
     "url": "/index.html"
   },
   {

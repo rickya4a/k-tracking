@@ -24,6 +24,11 @@
             >
               Username atau password salah
             </v-alert>
+            <v-img
+              src="../assets/k-link-logo2.png"
+              contain="true"
+              max-height="180"
+            ></v-img>
             <v-card class="elevation-21">
               <v-toolbar
                 color="success"
