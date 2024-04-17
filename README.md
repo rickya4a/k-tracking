@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.com/rickyaditya/k-tracking.svg?token=DGGdSFWirpaKtysMiZUt&branch=master)](https://travis-ci.com/rickyaditya/k-tracking)
 # K-Tracking
+K-Tracking is a web app for tracking shipment delivery from warehouse to all K-Link Indonesia stockists
 
 ## Project setup
 ```
